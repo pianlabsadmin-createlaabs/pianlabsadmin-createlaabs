@@ -1,0 +1,20 @@
+{
+    "rules": {
+        "signups": {
+            ".read": false,
+            ".write": false,
+            "$uid": {
+                ".validate": "newData.hasChildren(['email', 'createdAt', 'timestamp'])",
+                "email": {
+                    ".validate": "newData.isString() && newData.val().matches(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/)"
+                },
+                "createdAt": {
+                    ".validate": "newData.isString()"
+                },
+                "timestamp": {
+                    ".validate": "newData.isNumber()"
+                }
+            }
+        }
+    }
+}

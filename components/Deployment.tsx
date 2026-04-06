@@ -30,16 +30,31 @@ export default function Deployment() {
     if (!email || status === "submitting") return;
     setStatus("submitting");
     try {
-      // Server action / API route would go here. Email destination: PRANLabsAdmin@gmail.com
-      await fetch("/api/signup", {
+      const response = await fetch("/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, to: "PRANLabsAdmin@gmail.com" }),
+        body: JSON.stringify({ email }),
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to signup");
+      }
+
       setStatus("success");
       setEmail("");
-    } catch {
+
+      // Reset success status after 3 seconds
+      setTimeout(() => {
+        setStatus("idle");
+      }, 3000);
+    } catch (err) {
+      console.error("Signup error:", err);
       setStatus("error");
+
+      // Reset error status after 3 seconds
+      setTimeout(() => {
+        setStatus("idle");
+      }, 3000);
     }
   };
 
@@ -132,7 +147,7 @@ export default function Deployment() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter Your Email..."
               disabled={status === "submitting" || status === "success"}
-              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC0B]/60 focus:ring-1 focus:ring-[#5EFC0B]/40 transition-all disabled:opacity-60"
+              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-6 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-[#5EFC0B]/60 focus:ring-1 focus:ring-[#5EFC0B]/40 transition-all disabled:opacity-60 autofill:bg-black autofill:text-white autofill:shadow-[inset_0_0_0px_1000px_rgba(0,0,0,0.9)]"
             />
             <motion.button
               type="submit"
