@@ -8,13 +8,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "TechSnitch | AI Operating System For Execution",
-  description: "A multi-agent execution platform where intelligent agents connect systems, make decisions, and execute enterprise tasks at scale.",
+  title: "PIAN | AI Operating System For Execution",
+  description:
+    "A multi-agent execution platform where intelligent agents connect systems, make decisions, and execute enterprise tasks at scale.",
   openGraph: {
-    title: "TechSnitch | Enterprise AI Operating System",
-    description: "A multi-agent execution platform where intelligent agents connect systems, make decisions, and execute enterprise tasks at scale.",
-    url: "https://techsnitch.co",
-    siteName: "TechSnitch",
+    title: "PIAN | Enterprise AI Operating System",
+    description:
+      "A multi-agent execution platform where intelligent agents connect systems, make decisions, and execute enterprise tasks at scale.",
+    siteName: "PIAN",
     locale: "en_US",
     type: "website",
   },
