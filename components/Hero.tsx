@@ -107,7 +107,7 @@ export default function Hero() {
             whileTap={{ scale: 0.95 }}
             className="mt-12 group cursor-pointer inline-flex items-center gap-2 backdrop-blur-md bg-white/5 px-8 py-4 rounded-full border border-white/10 hover:border-[#5EFC0B]/50 transition-all hover:shadow-[0_0_30px_rgba(94,252,11,0.2)]"
           >
-            <span className="text-base font-medium">Learn More</span>
+            <span className="text-base font-medium">Coming soon...</span>
             <svg className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-[#5EFC0B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>
