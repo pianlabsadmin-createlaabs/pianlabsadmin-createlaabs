@@ -104,7 +104,7 @@ export default function Architecture() {
         </div>
 
         {/* Right: 3D stacked glass layers */}
-        <div className="flex-1 relative w-full lg:h-[700px] flex items-center justify-center pointer-events-none">
+        <div className="flex-1 relative w-full h-[50vh] lg:h-[700px] flex items-center justify-center pointer-events-none mt-10 lg:mt-0">
           <motion.div
             initial={{ opacity: 0, scale: 0.85, y: 50 }}
             whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -113,13 +113,13 @@ export default function Architecture() {
             animate={{ y: [0, -15, 0] }}
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             style={{} as any}
-            className="relative w-full max-w-[600px] aspect-square"
+            className="relative w-full aspect-square max-w-[600px] mx-auto"
           >
             <Image
               src="/3 green layer rectangles_no_bg_4rz06ueu.png"
               alt="Three Layer Architecture"
               fill
-              className="object-contain"
+              className="object-contain object-center"
               sizes="(max-width: 1024px) 100vw, 50vw"
               style={{ filter: "drop-shadow(0 20px 60px rgba(94,252,11,0.35))" }}
             />

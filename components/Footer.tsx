@@ -40,17 +40,6 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Logo Mark */}
-          <div className="flex lg:justify-end items-start h-full relative">
-            <Image 
-              src="/tech snitch logo_no_bg_530etljp.png" 
-              alt="Tech Snitch Logo" 
-              width={140} 
-              height={60} 
-              style={{ width: 'auto', height: 'auto' }}
-              className="object-contain opacity-50 hover:opacity-100 transition-opacity"
-            />
-          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 text-sm text-gray-500">
@@ -71,10 +60,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-gray-500">
-          <div className="flex items-center gap-3 mb-4 md:mb-0">
-            <span className="bg-[#0b1f0e] border border-[#5EFC0B]/30 text-[#5EFC0B] px-2 py-1 rounded shadow-[0_0_10px_rgba(94,252,11,0.15)] font-bold tracking-tight">7.9</span>
-            <span className="text-gray-400">Leadsguro score 🏆 🇮🇳 🇺🇸</span>
-          </div>
+          <div className="hidden md:block"></div>
           <div>© 2024 Tech Snitch | All Rights Reserved.</div>
           <div className="flex gap-4">
             <Link href="#" className="hover:text-white transition-colors">Cookies Policy</Link>

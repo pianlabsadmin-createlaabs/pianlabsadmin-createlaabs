@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { useState, useEffect, useCallback } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 const SCREENSHOTS = [
   "/screenshots/Screenshot 2026-04-05 123358.png",
@@ -24,6 +24,7 @@ const SCREENSHOTS = [
 
 export default function Snapshots() {
   const [current, setCurrent] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const total = SCREENSHOTS.length;
 
   const goNext = useCallback(() => setCurrent((c) => (c + 1) % total), [total]);
@@ -79,42 +80,42 @@ export default function Snapshots() {
           </motion.button>
 
           {/* Three-panel row – prev peek | center | next peek */}
-          <div className="flex-1 flex items-center gap-3 overflow-hidden" style={{ height: "clamp(280px, 40vw, 520px)" }}>
+          <div className="flex-1 flex items-center justify-center gap-4 overflow-hidden w-full">
 
             {/* Prev peek */}
             <div
-              className="flex-shrink-0 relative cursor-pointer rounded-2xl overflow-hidden border border-white/10"
-              style={{ width: "18%", height: "80%", opacity: 0.45 }}
+              className="hidden md:block flex-shrink-0 relative cursor-pointer rounded-2xl overflow-hidden border border-white/10 bg-black/40"
+              style={{ width: "15%", aspectRatio: "16/9", opacity: 0.45 }}
               onClick={goPrev}
             >
               <Image src={SCREENSHOTS[prevIdx]} alt="" fill className="object-cover" sizes="20vw" priority />
               <div className="absolute inset-0 bg-black/50" />
             </div>
 
-            {/* Active center — 16:9 inner ratio */}
-            <div className="flex-1 relative overflow-hidden rounded-2xl border-2 z-10"
+            {/* Active center */}
+            <div className="flex-[3] relative overflow-hidden rounded-2xl border-2 z-10 w-full"
               style={{
                 borderColor: "rgba(94,252,11,0.5)",
                 boxShadow: "0 0 40px rgba(94,252,11,0.2), 0 0 80px rgba(94,252,11,0.07)",
-                height: "100%",
+                aspectRatio: "16/9",
               }}
             >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={current}
-                  className="absolute inset-0"
+                  className="absolute inset-0 cursor-pointer"
+                  onClick={() => setIsLightboxOpen(true)}
                   initial={{ opacity: 0, scale: 0.97 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.97 }}
                   transition={{ duration: 0.4 }}
                 >
-                  {/* Letterbox container that respects 16:9 */}
                   <div className="relative w-full h-full bg-[#0a0a0a]">
                     <Image
                       src={SCREENSHOTS[current]}
                       alt={`Snapshot ${current + 1}`}
                       fill
-                      className="object-contain"
+                      className="object-cover md:object-contain"
                       sizes="(max-width: 1280px) 80vw, 900px"
                       priority
                     />
@@ -128,8 +129,8 @@ export default function Snapshots() {
 
             {/* Next peek */}
             <div
-              className="flex-shrink-0 relative cursor-pointer rounded-2xl overflow-hidden border border-white/10"
-              style={{ width: "18%", height: "80%", opacity: 0.45 }}
+              className="hidden md:block flex-shrink-0 relative cursor-pointer rounded-2xl overflow-hidden border border-white/10 bg-black/40"
+              style={{ width: "15%", aspectRatio: "16/9", opacity: 0.45 }}
               onClick={goNext}
             >
               <Image src={SCREENSHOTS[nextIdx]} alt="" fill className="object-cover" sizes="20vw" priority />
@@ -177,6 +178,47 @@ export default function Snapshots() {
 
       {/* Bottom neon separator */}
       <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#5EFC0B]/30 to-transparent" />
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {isLightboxOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 md:p-8 backdrop-blur-md"
+            onClick={() => setIsLightboxOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 20 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-full max-w-7xl max-h-[90vh] aspect-[4/3] md:aspect-video lg:aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                boxShadow: "0 0 100px rgba(94,252,11,0.15)",
+                border: "1px solid rgba(94,252,11,0.3)",
+              }}
+            >
+              <button
+                className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-[#5EFC0B]/20 text-white rounded-full transition-all backdrop-blur-md"
+                onClick={() => setIsLightboxOpen(false)}
+              >
+                <X size={24} />
+              </button>
+              <Image
+                src={SCREENSHOTS[current]}
+                alt={`Snapshot ${current + 1} Full`}
+                fill
+                className="object-contain bg-[#050505]"
+                quality={100}
+                priority
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

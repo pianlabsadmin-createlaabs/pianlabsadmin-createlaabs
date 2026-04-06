@@ -105,7 +105,7 @@ export default function Agents() {
   ];
 
   return (
-    <section id="about" ref={containerRef} className="relative overflow-hidden bg-black">
+    <section id="about" ref={containerRef} className="relative overflow-hidden bg-black" style={{ position: "relative" }}>
 
       {/* ══════════════════════════════════════════
           TOP BAND: "it's a multi-agent …" + 3 cards
@@ -138,9 +138,8 @@ export default function Agents() {
               viewport={{ once: true }}
               transition={{ delay: idx * 0.15, duration: 0.7 }}
               whileHover={{ scale: 1.05, y: -4 }}
-              className="relative glass-panel rounded-3xl p-8 flex flex-col items-center gap-6 cursor-default"
+              className="relative glass-panel rounded-3xl p-8 flex flex-col items-center gap-6 cursor-default w-full max-w-[360px]"
               style={{
-                width: 360,
                 border: `2px solid ${bg}44`,
                 boxShadow: `0 0 50px ${bg}22`,
               }}
@@ -167,7 +166,7 @@ export default function Agents() {
       {/* ══════════════════════════════════════════
           BOTTOM BAND: big headline + 3D objects
          ══════════════════════════════════════════ */}
-      <div className="relative min-h-[90vh] flex items-center overflow-hidden">
+      <div className="relative min-h-[90vh] flex flex-col lg:flex-row items-center overflow-hidden pt-16 lg:pt-0">
 
         {/* Glowing yellow-green ribbon / aurora behind the objects */}
         <motion.div
@@ -195,13 +194,13 @@ export default function Agents() {
         <NeonBar width="90px"  style={{ bottom: "28%", right: "5%" }} delay={2.2} />
 
         {/* Left: Text copy */}
-        <div className="relative z-20 flex-1 px-8 lg:px-20 py-20">
+        <div className="relative z-20 flex-1 w-full lg:w-1/2 px-8 lg:px-20 py-10 lg:py-20 text-center lg:text-left flex flex-col items-center lg:items-start">
           <motion.h2
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.9 }}
-            className="text-6xl md:text-7xl lg:text-8xl font-black leading-[1.05] tracking-tight text-white"
+            className="text-5xl md:text-7xl lg:text-8xl font-black leading-[1.05] tracking-tight text-white mt-8 lg:mt-0"
           >
             Choose from
             <br />
@@ -228,7 +227,7 @@ export default function Agents() {
         </div>
 
         {/* Right: Floating 3D objects */}
-        <div className="absolute right-0 top-0 w-1/2 h-full pointer-events-none">
+        <div className="relative lg:absolute right-0 top-0 w-full lg:w-1/2 h-[60vh] lg:h-full pointer-events-none mt-10 lg:mt-0 overflow-visible">
 
           {/* Globe – center */}
           <motion.div

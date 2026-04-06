@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: ['archimedes-unexhaled-protandrously.ngrok-free.dev'],
   images: {
     formats: ["image/avif", "image/webp"],
+    qualities: [75, 100],
   },
   async headers() {
     return [
