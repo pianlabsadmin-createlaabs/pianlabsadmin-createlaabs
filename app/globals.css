@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --color-neon: #5EFC0B;
+  --color-neon-dim: rgba(94, 252, 11, 0.2);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-neon: var(--color-neon);
+  --color-neon-dim: var(--color-neon-dim);
+  --font-sans: var(--font-inter);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glass panel */
+.glass-panel {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+}
+
+.neon-text {
+  color: #5EFC0B;
+  text-shadow: 0 0 20px rgba(94,252,11,0.6), 0 0 40px rgba(94,252,11,0.3);
+}
+
+/* Neon glow line */
+.neon-line {
+  background: linear-gradient(90deg, transparent, #5EFC0B, transparent);
+  height: 1px;
+  opacity: 0.6;
+}
+
+/* Neon pill / bar — thick, no glow */
+.neon-pill {
+  background: linear-gradient(90deg, rgba(20,100,10,0.6), rgba(94,252,11,0.85), rgba(20,100,10,0.6));
+  border-radius: 9999px;
+  height: 22px;
+  /* No box-shadow — solid thick bars as in reference */
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: #5EFC0B33; border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: #5EFC0B66; }
+
+/* Typewriter cursor */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
+/* Glow pulse */
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(94,252,11,0.4), 0 0 40px rgba(94,252,11,0.2); }
+  50% { box-shadow: 0 0 40px rgba(94,252,11,0.7), 0 0 80px rgba(94,252,11,0.4); }
+}
+.glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Float animations */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+/* Random motion blob */
+@keyframes blob-move {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+/* Drift bar */
+@keyframes drift-right {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(20px); opacity: 1; }
+}
+@keyframes drift-left {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(-20px); opacity: 1; }
+}
+
+/* Slide in from left/right */
+@keyframes slide-reveal {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
 }
