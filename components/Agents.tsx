@@ -221,7 +221,7 @@ export default function Agents() {
               className="text-yellow-400 font-black text-3xl md:text-4xl"
               style={{ textShadow: "0 0 18px rgba(253,224,71,0.7)" }}
             >
-              <Typewriter text="INDUSTRY" />
+              <Typewriter text="EVERYONE" />
             </span>
           </motion.div>
         </div>
