@@ -1,7 +1,8 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 // Floating random blob (Optimized)
 function RandomBlob({ className }: { className: string }) {
@@ -44,7 +45,28 @@ function NeonBar({ width, top, left, right, delay = 0, driftDir = "right" }: {
   );
 }
 
+function scrollToContact(close: () => void) {
+  close();
+  document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+}
+
 export default function Hero() {
+  const [comingSoonOpen, setComingSoonOpen] = useState(false);
+
+  useEffect(() => {
+    if (!comingSoonOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setComingSoonOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [comingSoonOpen]);
+
   return (
     <section id="home" className="relative min-h-[100vh] w-full flex flex-col items-center justify-center pt-20 overflow-hidden">
       {/* Random motion blobs */}
@@ -99,19 +121,21 @@ export default function Hero() {
             <span className="neon-text font-black text-6xl md:text-7xl lg:text-8xl">PIAN.</span>
           </motion.h2>
 
-          <motion.div
+          <motion.button
+            type="button"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
+            onClick={() => setComingSoonOpen(true)}
             className="mt-12 group cursor-pointer inline-flex items-center gap-2 backdrop-blur-md bg-white/5 px-8 py-4 rounded-full border border-white/10 hover:border-[#5EFC0B]/50 transition-all hover:shadow-[0_0_30px_rgba(94,252,11,0.2)]"
           >
             <span className="text-base font-medium">Coming soon...</span>
-            <svg className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-[#5EFC0B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform text-[#5EFC0B]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>
-          </motion.div>
+          </motion.button>
         </div>
 
         <div className="flex-1 relative flex items-center justify-center">
@@ -159,6 +183,98 @@ export default function Hero() {
       >
         Experience cutting-edge solutions designed to elevate productivity and deliver results like never before.
       </motion.p>
+
+      <AnimatePresence>
+        {comingSoonOpen && (
+          <motion.div
+            role="presentation"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <button
+              type="button"
+              aria-label="Close dialog"
+              className="absolute inset-0 bg-black/75 backdrop-blur-sm"
+              onClick={() => setComingSoonOpen(false)}
+            />
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="coming-soon-title"
+              initial={{ opacity: 0, scale: 0.92, y: 16 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.96, y: 8 }}
+              transition={{ type: "spring", damping: 26, stiffness: 320 }}
+              className="relative z-10 w-full max-w-lg overflow-hidden rounded-2xl border border-[#5EFC0B]/40 bg-[#030803]/95 shadow-[0_0_60px_rgba(94,252,11,0.18),inset_0_1px_0_rgba(94,252,11,0.12)]"
+            >
+              <div
+                className="pointer-events-none absolute inset-0 opacity-[0.07]"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(94,252,11,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(94,252,11,0.5) 1px, transparent 1px)",
+                  backgroundSize: "24px 24px",
+                }}
+              />
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#5EFC0B] to-transparent opacity-80" />
+              <div className="relative p-8 md:p-10">
+                <button
+                  type="button"
+                  onClick={() => setComingSoonOpen(false)}
+                  className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-gray-400 transition-colors hover:border-[#5EFC0B]/50 hover:text-[#5EFC0B]"
+                  aria-label="Close dialog"
+                >
+                  <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <p
+                  id="coming-soon-title"
+                  className="font-bold text-xl md:text-2xl tracking-tight pr-10 text-[#8ecf7a]"
+                >
+                  Launch access
+                </p>
+                <div className="mt-5 space-y-4 text-sm md:text-base text-gray-300 leading-relaxed">
+                  <p>
+                    You can sign up for this application <span className="text-white font-semibold">for free</span> on our{" "}
+                    <button
+                      type="button"
+                      onClick={() => scrollToContact(() => setComingSoonOpen(false))}
+                      className="text-[#5EFC0B] underline decoration-[#5EFC0B]/40 underline-offset-4 hover:decoration-[#5EFC0B] transition-colors"
+                    >
+                      Contact Us
+                    </button>{" "}
+                    page.
+                  </p>
+                  <p>
+                    Estimated launch: <span className="text-white font-medium">end of this month</span>.
+                  </p>
+                  <p>We will contact you as soon as your product is ready.</p>
+                  <p className="text-gray-400 pt-1">Thanks a lot for your interest.</p>
+                </div>
+                <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                  <button
+                    type="button"
+                    onClick={() => scrollToContact(() => setComingSoonOpen(false))}
+                    className="flex-1 rounded-full bg-[#5EFC0B] px-6 py-3 text-sm font-bold text-black shadow-[0_0_24px_rgba(94,252,11,0.35)] transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    Go to Contact Us
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setComingSoonOpen(false)}
+                    className="flex-1 rounded-full border border-white/15 px-6 py-3 text-sm font-medium text-gray-200 hover:border-[#5EFC0B]/40 hover:text-white transition-colors"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
