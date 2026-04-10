@@ -30,6 +30,9 @@ export default function Navbar() {
         <Link href="#features" className="px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-[#5EFC0B]/50 hover:text-white transition-all hover:shadow-[0_0_15px_rgba(94,252,11,0.15)]" onClick={(e) => { e.preventDefault(); document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' }); }}>
           Features
         </Link>
+        <Link href="/explore" className="px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-[#5EFC0B]/50 hover:text-white transition-all hover:shadow-[0_0_15px_rgba(94,252,11,0.15)]">
+          Explore
+        </Link>
         <Link href="#contact" className="px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 hover:bg-white/10 hover:border-[#5EFC0B]/50 hover:text-white transition-all hover:shadow-[0_0_15px_rgba(94,252,11,0.15)]" onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}>
           Contact Us
         </Link>
@@ -55,6 +58,7 @@ export default function Navbar() {
             <Link href="#home" className="block text-center text-lg font-medium text-gray-200 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#5EFC0B] transition-all" onClick={(e) => { setIsOpen(false); e.preventDefault(); document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' }); }}>Home</Link>
             <Link href="#about" className="block text-center text-lg font-medium text-gray-200 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#5EFC0B] transition-all" onClick={(e) => { setIsOpen(false); e.preventDefault(); document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }); }}>About</Link>
             <Link href="#features" className="block text-center text-lg font-medium text-gray-200 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#5EFC0B] transition-all" onClick={(e) => { setIsOpen(false); e.preventDefault(); document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' }); }}>Features</Link>
+            <Link href="/explore" className="block text-center text-lg font-medium text-gray-200 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#5EFC0B] transition-all" onClick={() => { setIsOpen(false); }}>Explore</Link>
             <Link href="#contact" className="block text-center text-lg font-medium text-gray-200 py-3 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 hover:text-[#5EFC0B] transition-all" onClick={(e) => { setIsOpen(false); e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' }); }}>Contact Us</Link>
           </motion.div>
         )}
