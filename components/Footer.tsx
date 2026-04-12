@@ -61,7 +61,7 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-gray-500">
           <div className="hidden md:block"></div>
-          <div>© 2024 Tech Snitch | All Rights Reserved.</div>
+          <div>© 2026 Tech Snitch | All Rights Reserved.</div>
           <div className="flex gap-4">
             <Link href="#" className="hover:text-white transition-colors">Cookies Policy</Link>
             <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
